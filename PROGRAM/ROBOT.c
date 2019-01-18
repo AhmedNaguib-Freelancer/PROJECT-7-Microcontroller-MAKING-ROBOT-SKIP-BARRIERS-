@@ -1,0 +1,52 @@
+void FORWARD()
+{
+PORTB=0B00000101;
+}
+void REVERSE()
+{
+PORTB=0B00001010;
+}
+void LEFT()
+{
+PORTB=0B00001001;
+}
+void RIGHT()
+{
+PORTB=0B00000110;
+}
+
+void main() {
+TRISB=0;
+TRISD=255;
+pwm1_init(5000);
+pwm2_init(5000);
+pwm1_set_duty(127);
+pwm2_set_duty(127);
+PORTB=0B00000101; //FORWARD
+while(1){
+if(PORTD.F0==1)
+{
+REVERSE(); //REVERSE
+delay_ms(1000);
+pwm1_start();
+pwm2_start();
+LEFT(); //LEFT DIRESTION
+delay_ms(1000);
+pwm1_stop();
+pwm2_stop();
+FORWARD(); //FORWARD
+}
+else if (PORTD.F1==1)
+{
+REVERSE(); //REVERSE
+delay_ms(1000);
+pwm1_start();
+pwm2_start();
+RIGHT(); //RIGHT DIRESTION
+delay_ms(1000);
+pwm1_stop();
+pwm2_stop();
+FORWARD(); //FORWARD
+}
+}
+}
